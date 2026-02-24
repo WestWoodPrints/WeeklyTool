@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "students": {
+    "test": [
+      {
+        "date": "2026-02-24",
+        "planned": "bums",
+        "done": "nicht aller bums",
+        "next_planned": "reste vom bums"
+      },
+      {
+        "date": "2026-02-24",
+        "planned": "reste vom bums",
+        "done": "noch mehr als gedacht",
+        "next_planned": "weiter so"
+      }
+    ]
+  }
+}
