@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 4,
   "students": {
     "test": {
       "projects": [
@@ -7,33 +7,39 @@
           "name": "test",
           "start_date": "2026-01-31",
           "end_date": "2026-05-25",
+          "project_todos": [],
           "weeklies": [
             {
               "date": "2026-02-24",
+              "title": "",
               "planned": "bums",
               "done": "nicht aller bums",
               "next_planned": "reste vom bums"
             },
             {
               "date": "2026-02-24",
+              "title": "",
               "planned": "reste vom bums",
               "done": "noch mehr als gedacht",
               "next_planned": "weiter so"
             },
             {
               "date": "2026-02-24",
+              "title": "",
               "planned": "sadfasdf",
               "done": "sdaasdf",
               "next_planned": "sdaasdfasdf"
             },
             {
               "date": "2026-02-26",
+              "title": "",
               "planned": "sdaasdfasdf",
               "done": "asd",
               "next_planned": "asd"
             },
             {
               "date": "2026-02-24",
+              "title": "",
               "planned": "asd",
               "done": "",
               "next_planned": ""
@@ -48,27 +54,37 @@
           "name": "Stankhkjcvhjkgcdardprojekt",
           "start_date": "2026-02-24",
           "end_date": "2026-05-25",
+          "project_todos": [
+            {
+              "text": "ghjghjhgjghjjg",
+              "checked": false
+            }
+          ],
           "weeklies": [
             {
               "date": "2026-02-24",
+              "title": "",
               "planned": "bums",
               "done": "asdf asdoj",
               "next_planned": "asdfasdf asd"
             },
             {
               "date": "2026-02-24",
+              "title": "",
               "planned": "asdfasdf asd",
               "done": "asdfasdf",
               "next_planned": "asdfasdf"
             },
             {
               "date": "2026-02-11",
+              "title": "",
               "planned": "asdfasdf",
               "done": "asdf",
               "next_planned": "asdf"
             },
             {
               "date": "2026-02-24",
+              "title": "",
               "planned": "asdf",
               "done": "asdf",
               "next_planned": "asdfas"
@@ -83,22 +99,77 @@
           "name": "Test",
           "start_date": "2026-01-01",
           "end_date": "2026-05-10",
+          "project_todos": [],
           "weeklies": [
             {
               "date": "2026-02-24",
+              "title": "",
               "planned": "sachen",
               "done": "nicht alles",
               "next_planned": "Alles fertiog machen"
+            }
+          ]
+        },
+        {
+          "name": "Neue Funktionen Testen",
+          "start_date": "2026-02-04",
+          "end_date": "2026-05-25",
+          "project_todos": [
+            {
+              "text": "To Do Aktuell 2",
+              "checked": false
+            },
+            {
+              "text": "sdfg",
+              "checked": false
+            },
+            {
+              "text": "ggghjghj",
+              "checked": false
+            }
+          ],
+          "weeklies": [
+            {
+              "date": "2026-02-24",
+              "title": "",
+              "planned": "",
+              "done": "",
+              "next_planned": ""
+            },
+            {
+              "date": "2026-02-24",
+              "title": "erster Titel",
+              "planned": "asdasdf",
+              "done": "asdasdasasdsdfa",
+              "next_planned": "asas asdfasdf"
+            },
+            {
+              "date": "2026-02-25",
+              "title": "Titel 2",
+              "planned": "asas asdfasdf",
+              "done": "asad",
+              "next_planned": "as as as as"
             },
             {
               "date": "2026-02-26",
-              "planned": "Alles fertiog machen",
-              "done": "lEONEI HAT SICH SEKLBSTZ ÜBERTRIOFFEN",
-              "next_planned": "nOCH vIEL MERH Hallo"
+              "title": "Dummy",
+              "planned": "as as as as",
+              "done": "sdfgsdfg\nsdfgsdfg\nsdfgsdfg\nsdfgsdfgs\ndfgsdfg\nsdfgsdfg\nsdfgsdfg\nsdfgsdfg",
+              "next_planned": "sdf\nsdf\nsdf\nsdf"
             }
           ]
+        },
+        {
+          "name": "hfhf",
+          "start_date": "2026-02-24",
+          "end_date": "2026-05-25",
+          "project_todos": [],
+          "weeklies": []
         }
       ]
+    },
+    "hdhdjhg": {
+      "projects": []
     }
   }
 }
