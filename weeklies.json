@@ -1,57 +1,104 @@
 {
-  "version": 1,
+  "version": 2,
   "students": {
-    "test": [
-      {
-        "date": "2026-02-24",
-        "planned": "bums",
-        "done": "nicht aller bums",
-        "next_planned": "reste vom bums"
-      },
-      {
-        "date": "2026-02-24",
-        "planned": "reste vom bums",
-        "done": "noch mehr als gedacht",
-        "next_planned": "weiter so"
-      },
-      {
-        "date": "2026-02-24",
-        "planned": "sadfasdf",
-        "done": "sdaasdf",
-        "next_planned": "sdaasdfasdf"
-      },
-      {
-        "date": "2026-02-24",
-        "planned": "sdaasdfasdf",
-        "done": "",
-        "next_planned": ""
-      }
-    ],
-    "test2": [
-      {
-        "date": "2026-02-24",
-        "planned": "bums",
-        "done": "asdf asdoj",
-        "next_planned": "asdfasdf asd"
-      },
-      {
-        "date": "2026-02-24",
-        "planned": "asdfasdf asd",
-        "done": "asdfasdf",
-        "next_planned": "asdfasdf"
-      },
-      {
-        "date": "2026-02-11",
-        "planned": "asdfasdf",
-        "done": "asdf",
-        "next_planned": "asdf"
-      },
-      {
-        "date": "2026-02-24",
-        "planned": "asdf",
-        "done": "asdf",
-        "next_planned": "asdfas"
-      }
-    ]
+    "test": {
+      "projects": [
+        {
+          "name": "test",
+          "start_date": "2026-01-31",
+          "end_date": "2026-05-25",
+          "weeklies": [
+            {
+              "date": "2026-02-24",
+              "planned": "bums",
+              "done": "nicht aller bums",
+              "next_planned": "reste vom bums"
+            },
+            {
+              "date": "2026-02-24",
+              "planned": "reste vom bums",
+              "done": "noch mehr als gedacht",
+              "next_planned": "weiter so"
+            },
+            {
+              "date": "2026-02-24",
+              "planned": "sadfasdf",
+              "done": "sdaasdf",
+              "next_planned": "sdaasdfasdf"
+            },
+            {
+              "date": "2026-02-26",
+              "planned": "sdaasdfasdf",
+              "done": "asd",
+              "next_planned": "asd"
+            },
+            {
+              "date": "2026-02-24",
+              "planned": "asd",
+              "done": "",
+              "next_planned": ""
+            }
+          ]
+        }
+      ]
+    },
+    "test2": {
+      "projects": [
+        {
+          "name": "Stankhkjcvhjkgcdardprojekt",
+          "start_date": "2026-02-24",
+          "end_date": "2026-05-25",
+          "weeklies": [
+            {
+              "date": "2026-02-24",
+              "planned": "bums",
+              "done": "asdf asdoj",
+              "next_planned": "asdfasdf asd"
+            },
+            {
+              "date": "2026-02-24",
+              "planned": "asdfasdf asd",
+              "done": "asdfasdf",
+              "next_planned": "asdfasdf"
+            },
+            {
+              "date": "2026-02-11",
+              "planned": "asdfasdf",
+              "done": "asdf",
+              "next_planned": "asdf"
+            },
+            {
+              "date": "2026-02-24",
+              "planned": "asdf",
+              "done": "asdf",
+              "next_planned": "asdfas"
+            }
+          ]
+        }
+      ]
+    },
+    "Leonie": {
+      "projects": [
+        {
+          "name": "Test",
+          "start_date": "2026-01-01",
+          "end_date": "2026-05-10",
+          "weeklies": [
+            {
+              "date": "2026-02-24",
+              "planned": "sachen",
+              "done": "nicht alles",
+              "next_planned": "Alles fertiog machen"
+            },
+            {
+              "date": "2026-02-26",
+              "planned": "Alles fertiog machen",
+              "done": "lEONEI HAT SICH SEKLBSTZ ÜBERTRIOFFEN",
+              "next_planned": "nOCH vIEL MERH Hallo"
+            }
+          ]
+        }
+      ]
+    }
   }
 }
