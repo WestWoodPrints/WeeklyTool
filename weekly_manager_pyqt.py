@@ -6,7 +6,6 @@
 import json
 import os
 import sys
-from copy import deepcopy
 
 from PyQt6.QtCore import Qt, QDate
 from PyQt6.QtGui import QAction, QFont
@@ -23,7 +22,6 @@ from PyQt6.QtWidgets import (
     QPushButton,
     QTextEdit,
     QDateEdit,
-    QFileDialog,
     QMessageBox,
     QInputDialog,
     QGroupBox,
@@ -111,7 +109,10 @@ class WeeklyManagerWindow(QMainWindow):
 
         # Datenmodell
         self.data = {"version": 1, "students": {}}
-        self.current_file = None
+        self.current_file = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            "weeklies.json",
+        )
 
         # Auswahlzustand
         self.current_student = None              # str | None
@@ -122,6 +123,7 @@ class WeeklyManagerWindow(QMainWindow):
         self._build_ui()
         self._apply_style()
         self._connect_signals()
+        self._load_or_create_default_file()
 
         self.statusBar().showMessage("Bereit")
         self._update_window_title()
@@ -138,15 +140,9 @@ class WeeklyManagerWindow(QMainWindow):
         toolbar.setIconSize(toolbar.iconSize())
         self.addToolBar(toolbar)
 
-        self.act_new = QAction("Neu", self)
         self.act_open = QAction("Laden", self)
-        self.act_save = QAction("Speichern", self)
-        self.act_save_as = QAction("Speichern unter", self)
 
-        toolbar.addAction(self.act_new)
         toolbar.addAction(self.act_open)
-        toolbar.addAction(self.act_save)
-        toolbar.addAction(self.act_save_as)
 
         toolbar.addSeparator()
 
@@ -159,10 +155,8 @@ class WeeklyManagerWindow(QMainWindow):
 
         self.act_new_weekly = QAction("Neues Weekly", self)
         self.act_delete_weekly = QAction("Weekly löschen", self)
-        self.act_commit = QAction("Änderungen übernehmen", self)
         toolbar.addAction(self.act_new_weekly)
         toolbar.addAction(self.act_delete_weekly)
-        toolbar.addAction(self.act_commit)
 
         # Zentraler Bereich
         central = QWidget()
@@ -263,10 +257,7 @@ class WeeklyManagerWindow(QMainWindow):
         right_card.content_layout.addWidget(self.grp_next, 1)
 
         editor_btn_row = QHBoxLayout()
-        self.btn_commit = QPushButton("Änderungen übernehmen")
-        self.btn_commit.setObjectName("PrimaryButton")
         self.btn_reset_editor = QPushButton("Editor leeren")
-        editor_btn_row.addWidget(self.btn_commit)
         editor_btn_row.addWidget(self.btn_reset_editor)
         right_card.content_layout.addLayout(editor_btn_row)
 
@@ -281,22 +272,17 @@ class WeeklyManagerWindow(QMainWindow):
 
     def _connect_signals(self):
         # Toolbar Aktionen
-        self.act_new.triggered.connect(self.new_dataset)
         self.act_open.triggered.connect(self.load_json_dialog)
-        self.act_save.triggered.connect(self.save_json)
-        self.act_save_as.triggered.connect(self.save_json_as)
         self.act_add_student.triggered.connect(self.add_student)
         self.act_remove_student.triggered.connect(self.remove_student)
         self.act_new_weekly.triggered.connect(self.add_weekly)
         self.act_delete_weekly.triggered.connect(self.delete_weekly)
-        self.act_commit.triggered.connect(self.commit_current_weekly)
 
         # Buttons
         self.btn_add_student.clicked.connect(self.add_student)
         self.btn_remove_student.clicked.connect(self.remove_student)
         self.btn_new_weekly.clicked.connect(self.add_weekly)
         self.btn_delete_weekly.clicked.connect(self.delete_weekly)
-        self.btn_commit.clicked.connect(self.commit_current_weekly)
         self.btn_reset_editor.clicked.connect(self.clear_editor)
         self.btn_duplicate_hint.clicked.connect(self.add_weekly)
 
@@ -305,10 +291,10 @@ class WeeklyManagerWindow(QMainWindow):
         self.weekly_list.currentItemChanged.connect(self.on_weekly_changed)
 
         # Editor-Änderungen -> dirty markieren
-        self.date_edit.dateChanged.connect(self._mark_dirty)
-        self.txt_planned.textChanged.connect(self._mark_dirty)
-        self.txt_done.textChanged.connect(self._mark_dirty)
-        self.txt_next.textChanged.connect(self._mark_dirty)
+        self.date_edit.dateChanged.connect(self._on_editor_changed)
+        self.txt_planned.textChanged.connect(self._on_editor_changed)
+        self.txt_done.textChanged.connect(self._on_editor_changed)
+        self.txt_next.textChanged.connect(self._on_editor_changed)
 
     # -------------------------------------------------------------------------
     # Styling
@@ -478,7 +464,6 @@ class WeeklyManagerWindow(QMainWindow):
         self.txt_planned.setEnabled(enabled)
         self.txt_done.setEnabled(enabled)
         self.txt_next.setEnabled(enabled)
-        self.btn_commit.setEnabled(enabled)
         self.btn_reset_editor.setEnabled(enabled)
 
     def _current_student_weeklies(self):
@@ -522,6 +507,40 @@ class WeeklyManagerWindow(QMainWindow):
             self._loading_ui = False
         self._clear_dirty()
 
+    def _write_editor_to_current_weekly(self) -> bool:
+        if self._loading_ui:
+            return False
+        if self.current_student is None or self.current_weekly_index is None:
+            return False
+
+        weeklies = self._current_student_weeklies()
+        if weeklies is None or not (0 <= self.current_weekly_index < len(weeklies)):
+            return False
+
+        entry = weeklies[self.current_weekly_index]
+        entry["date"] = self.date_edit.date().toString(Qt.DateFormat.ISODate)
+        entry["planned"] = self.txt_planned.toPlainText().rstrip()
+        entry["done"] = self.txt_done.toPlainText().rstrip()
+        entry["next_planned"] = self.txt_next.toPlainText().rstrip()
+        return True
+
+    def _update_current_weekly_list_item(self):
+        if self.current_weekly_index is None:
+            return
+        for row in range(self.weekly_list.count()):
+            item = self.weekly_list.item(row)
+            if item.data(Qt.ItemDataRole.UserRole) == self.current_weekly_index:
+                weeklies = self._current_student_weeklies()
+                if weeklies is not None and 0 <= self.current_weekly_index < len(weeklies):
+                    item.setText(self._weekly_preview_text(weeklies[self.current_weekly_index]))
+                return
+
+    def _on_editor_changed(self):
+        if not self._write_editor_to_current_weekly():
+            return
+        self._update_current_weekly_list_item()
+        self._save_to_current_file()
+
     def clear_editor(self):
         if self.current_weekly_index is None:
             return
@@ -533,7 +552,7 @@ class WeeklyManagerWindow(QMainWindow):
             self.txt_next.clear()
         finally:
             self._loading_ui = False
-        self._mark_dirty()
+        self._on_editor_changed()
 
     # -------------------------------------------------------------------------
     # Datenoperationen / Rendering
@@ -623,8 +642,6 @@ class WeeklyManagerWindow(QMainWindow):
     # -------------------------------------------------------------------------
     def on_student_changed(self, current: QListWidgetItem, previous: QListWidgetItem):
         # Vorheriges Weekly übernehmen (falls offen)
-        if previous is not None:
-            self.commit_current_weekly(show_message=False)
 
         if current is None:
             self.current_student = None
@@ -638,8 +655,6 @@ class WeeklyManagerWindow(QMainWindow):
 
     def on_weekly_changed(self, current: QListWidgetItem, previous: QListWidgetItem):
         # Vorheriges Weekly übernehmen
-        if previous is not None:
-            self.commit_current_weekly(show_message=False)
 
         if current is None:
             self.current_weekly_index = None
@@ -675,8 +690,8 @@ class WeeklyManagerWindow(QMainWindow):
             return
 
         self.data["students"][name] = []
-        self._mark_dirty()
         self.refresh_student_list(select_name=name)
+        self._save_to_current_file()
         self.statusBar().showMessage(f"Studierende:r '{name}' hinzugefügt", 3000)
 
     def remove_student(self):
@@ -699,8 +714,8 @@ class WeeklyManagerWindow(QMainWindow):
         self.data["students"].pop(name, None)
         self.current_student = None
         self.current_weekly_index = None
-        self._mark_dirty()
         self.refresh_student_list()
+        self._save_to_current_file()
         self.statusBar().showMessage(f"'{name}' entfernt", 3000)
 
     # -------------------------------------------------------------------------
@@ -710,9 +725,6 @@ class WeeklyManagerWindow(QMainWindow):
         if self.current_student is None:
             QMessageBox.information(self, "Hinweis", "Bitte zuerst eine:n Studierende:n auswählen.")
             return
-
-        # Aktuelles Weekly speichern
-        self.commit_current_weekly(show_message=False)
 
         weeklies = self._current_student_weeklies()
         if weeklies is None:
@@ -731,8 +743,8 @@ class WeeklyManagerWindow(QMainWindow):
         weeklies.append(new_entry)
         new_index = len(weeklies) - 1
 
-        self._mark_dirty()
         self.refresh_weekly_list(select_index=new_index)
+        self._save_to_current_file()
         self.statusBar().showMessage("Neues Weekly angelegt (Plan übernommen)", 3000)
 
     def delete_weekly(self):
@@ -757,71 +769,28 @@ class WeeklyManagerWindow(QMainWindow):
 
         del weeklies[self.current_weekly_index]
         self.current_weekly_index = None
-        self._mark_dirty()
         self.refresh_weekly_list()
+        self._save_to_current_file()
         self.statusBar().showMessage("Weekly gelöscht", 3000)
-
-    def commit_current_weekly(self, show_message: bool = True):
-        """
-        Überträgt den Editor-Inhalt in das aktuell ausgewählte Weekly.
-        """
-        if self._loading_ui:
-            return True
-
-        if self.current_student is None or self.current_weekly_index is None:
-            return True
-
-        weeklies = self._current_student_weeklies()
-        if weeklies is None:
-            return False
-
-        if not (0 <= self.current_weekly_index < len(weeklies)):
-            return False
-
-        entry = weeklies[self.current_weekly_index]
-        entry["date"] = self.date_edit.date().toString(Qt.DateFormat.ISODate)
-        entry["planned"] = self.txt_planned.toPlainText().rstrip()
-        entry["done"] = self.txt_done.toPlainText().rstrip()
-        entry["next_planned"] = self.txt_next.toPlainText().rstrip()
-
-        # Liste neu zeichnen, damit Preview aktualisiert wird
-        selected_index = self.current_weekly_index
-        self.refresh_weekly_list(select_index=selected_index)
-
-        self._clear_dirty()
-        if show_message:
-            self.statusBar().showMessage("Änderungen übernommen", 2000)
-        return True
 
     # -------------------------------------------------------------------------
     # Dateioperationen (JSON)
     # -------------------------------------------------------------------------
-    def new_dataset(self):
-        if not self._confirm_discard_if_needed():
+    def _load_or_create_default_file(self):
+        if os.path.exists(self.current_file):
+            self.load_json(self.current_file)
             return
-
         self.data = {"version": 1, "students": {}}
-        self.current_file = None
-        self.current_student = None
-        self.current_weekly_index = None
-        self._clear_dirty()
+        self._save_to_current_file()
         self.refresh_student_list()
-        self.statusBar().showMessage("Neuer Datensatz erstellt", 3000)
+        self.statusBar().showMessage("Neue weeklies.json angelegt", 4000)
 
     def load_json_dialog(self):
-        if not self._confirm_discard_if_needed():
+        if not os.path.exists(self.current_file):
+            QMessageBox.information(self, "Hinweis", "Die Datei weeklies.json existiert noch nicht.")
             return
 
-        file_path, _ = QFileDialog.getOpenFileName(
-            self,
-            "Weeklies laden",
-            "",
-            "JSON-Dateien (*.json);;Alle Dateien (*)"
-        )
-        if not file_path:
-            return
-
-        self.load_json(file_path)
+        self.load_json(self.current_file)
 
     def load_json(self, file_path: str):
         try:
@@ -839,73 +808,24 @@ class WeeklyManagerWindow(QMainWindow):
         self.refresh_student_list()
         self.statusBar().showMessage(f"Geladen: {os.path.basename(file_path)}", 4000)
 
-    def save_json(self):
-        # Vor dem Speichern Änderungen aus dem Editor übernehmen
-        self.commit_current_weekly(show_message=False)
-
-        if not self.current_file:
-            return self.save_json_as()
-
+    def _save_to_current_file(self) -> bool:
         try:
             with open(self.current_file, "w", encoding="utf-8") as f:
                 json.dump(self.data, f, ensure_ascii=False, indent=2)
         except Exception as e:
             QMessageBox.critical(self, "Fehler beim Speichern", f"Datei konnte nicht gespeichert werden:\n{e}")
-            return
+            self._mark_dirty()
+            return False
 
         self._clear_dirty()
-        self.statusBar().showMessage(f"Gespeichert: {os.path.basename(self.current_file)}", 3000)
-
-    def save_json_as(self):
-        self.commit_current_weekly(show_message=False)
-
-        file_path, _ = QFileDialog.getSaveFileName(
-            self,
-            "Weeklies speichern",
-            self.current_file or "weeklies.json",
-            "JSON-Dateien (*.json);;Alle Dateien (*)"
-        )
-        if not file_path:
-            return
-
-        if not file_path.lower().endswith(".json"):
-            file_path += ".json"
-
-        self.current_file = file_path
-        self.save_json()
-
-    def _confirm_discard_if_needed(self) -> bool:
-        if not self._dirty:
-            return True
-
-        reply = QMessageBox.question(
-            self,
-            "Ungespeicherte Änderungen",
-            "Es gibt ungespeicherte Änderungen. Möchtest du sie verwerfen?",
-            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
-            QMessageBox.StandardButton.No,
-        )
-        return reply == QMessageBox.StandardButton.Yes
+        return True
 
     # -------------------------------------------------------------------------
     # Fenster schließen
     # -------------------------------------------------------------------------
     def closeEvent(self, event):
-        # Letzte Editoränderungen übernehmen (nur in-memory)
-        self.commit_current_weekly(show_message=False)
-
-        if self._dirty:
-            reply = QMessageBox.question(
-                self,
-                "Beenden",
-                "Es gibt ungespeicherte Änderungen. Wirklich beenden?",
-                QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
-                QMessageBox.StandardButton.No,
-            )
-            if reply != QMessageBox.StandardButton.Yes:
-                event.ignore()
-                return
-
+        self._write_editor_to_current_weekly()
+        self._save_to_current_file()
         event.accept()
 
 
@@ -921,3 +841,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
