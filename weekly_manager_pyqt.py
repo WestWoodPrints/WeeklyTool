@@ -303,7 +303,7 @@ class Card(QFrame):
 class WeeklyManagerWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Studierenden-Weeklies Manager")
+        self.setWindowTitle("Studierenden-Weeklies-Manager")
         self.resize(1460, 900)
 
         self.data = {"version": 4, "students": {}}
@@ -347,22 +347,35 @@ class WeeklyManagerWindow(QMainWindow):
         toolbar.addWidget(self.theme_toggle_btn)
         toolbar.addSeparator()
 
-        self.act_add_student = QAction("Studierende:n hinzufuegen", self)
-        self.act_remove_student = QAction("Studierende:n entfernen", self)
-        toolbar.addAction(self.act_add_student)
-        toolbar.addAction(self.act_remove_student)
-        toolbar.addSeparator()
+        self.act_add_student = QAction("Studierende hinzufuegen", self)
+        self.act_remove_student = QAction("Studierende entfernen", self)
 
         self.act_add_project = QAction("Projekt hinzufuegen", self)
         self.act_remove_project = QAction("Projekt entfernen", self)
-        toolbar.addAction(self.act_add_project)
-        toolbar.addAction(self.act_remove_project)
-        toolbar.addSeparator()
 
         self.act_new_weekly = QAction("Neues Weekly", self)
-        self.act_delete_weekly = QAction("Weekly loeschen", self)
-        toolbar.addAction(self.act_new_weekly)
-        toolbar.addAction(self.act_delete_weekly)
+        self.act_delete_weekly = QAction("Weekly entfernen", self)
+        toolbar.addSeparator()
+
+        self.act_toggle_students_column = QAction("Studierende", self)
+        self.act_toggle_students_column.setCheckable(True)
+        self.act_toggle_students_column.setChecked(True)
+        toolbar.addAction(self.act_toggle_students_column)
+
+        self.act_toggle_projects_column = QAction("Projekte", self)
+        self.act_toggle_projects_column.setCheckable(True)
+        self.act_toggle_projects_column.setChecked(True)
+        toolbar.addAction(self.act_toggle_projects_column)
+
+        self.act_toggle_weeklies_column = QAction("Weeklies", self)
+        self.act_toggle_weeklies_column.setCheckable(True)
+        self.act_toggle_weeklies_column.setChecked(True)
+        toolbar.addAction(self.act_toggle_weeklies_column)
+
+        self.act_toggle_todo_area = QAction("TODO-Bereich", self)
+        self.act_toggle_todo_area.setCheckable(True)
+        self.act_toggle_todo_area.setChecked(False)
+        toolbar.addAction(self.act_toggle_todo_area)
 
         central = QWidget()
         self.setCentralWidget(central)
@@ -370,61 +383,59 @@ class WeeklyManagerWindow(QMainWindow):
         root_layout.setContentsMargins(12, 12, 12, 12)
         root_layout.setSpacing(12)
 
-        splitter = QSplitter(Qt.Orientation.Horizontal)
-        splitter.setChildrenCollapsible(False)
-        root_layout.addWidget(splitter, 1)
+        self.main_splitter = QSplitter(Qt.Orientation.Horizontal)
+        self.main_splitter.setChildrenCollapsible(False)
+        root_layout.addWidget(self.main_splitter, 1)
 
-        left_card = Card("Studierende")
-        splitter.addWidget(left_card)
+        self.left_card = Card("Studierende")
+        self.main_splitter.addWidget(self.left_card)
 
         self.student_list = DeselectableListWidget()
         self.student_list.setSelectionMode(QListWidget.SelectionMode.SingleSelection)
-        left_card.content_layout.addWidget(self.student_list, 1)
+        self.left_card.content_layout.addWidget(self.student_list, 1)
 
         student_btn_row = QHBoxLayout()
-        self.btn_add_student = QPushButton("+ Hinzufuegen")
-        self.btn_remove_student = QPushButton("- Entfernen")
+        self.btn_add_student = QPushButton("Hinzufuegen")
+        self.btn_remove_student = QPushButton("Entfernen")
         student_btn_row.addWidget(self.btn_add_student)
         student_btn_row.addWidget(self.btn_remove_student)
-        left_card.content_layout.addLayout(student_btn_row)
+        self.left_card.content_layout.addLayout(student_btn_row)
 
-        middle_card = Card("Projekte und Weeklies")
-        splitter.addWidget(middle_card)
+        self.middle_card = Card("Projekte und Weeklies")
+        self.main_splitter.addWidget(self.middle_card)
 
         self.project_summary_label = QLabel("Keine Studierenden ausgewaehlt")
         self.project_summary_label.setObjectName("SubtleLabel")
-        middle_card.content_layout.addWidget(self.project_summary_label)
+        self.middle_card.content_layout.addWidget(self.project_summary_label)
 
         self.project_list = DeselectableListWidget()
         self.project_list.setSelectionMode(QListWidget.SelectionMode.SingleSelection)
-        middle_card.content_layout.addWidget(self.project_list, 1)
+        self.middle_card.content_layout.addWidget(self.project_list, 1)
 
         project_btn_row = QHBoxLayout()
         self.btn_add_project = QPushButton("Neues Projekt")
-        self.btn_remove_project = QPushButton("Projekt loeschen")
+        self.btn_remove_project = QPushButton("Projekt entfernen")
         project_btn_row.addWidget(self.btn_add_project)
         project_btn_row.addWidget(self.btn_remove_project)
-        middle_card.content_layout.addLayout(project_btn_row)
+        self.middle_card.content_layout.addLayout(project_btn_row)
 
         self.weekly_summary_label = QLabel("Kein Projekt ausgewaehlt")
         self.weekly_summary_label.setObjectName("SubtleLabel")
-        middle_card.content_layout.addWidget(self.weekly_summary_label)
+        self.middle_card.content_layout.addWidget(self.weekly_summary_label)
 
         self.weekly_list = DeselectableListWidget()
         self.weekly_list.setSelectionMode(QListWidget.SelectionMode.SingleSelection)
-        middle_card.content_layout.addWidget(self.weekly_list, 1)
+        self.middle_card.content_layout.addWidget(self.weekly_list, 1)
 
         weekly_btn_row = QHBoxLayout()
         self.btn_new_weekly = QPushButton("Neues Weekly")
-        self.btn_delete_weekly = QPushButton("Weekly loeschen")
-        self.btn_project_overview = QPushButton("Projektansicht")
+        self.btn_delete_weekly = QPushButton("Weekly entfernen")
         weekly_btn_row.addWidget(self.btn_new_weekly)
         weekly_btn_row.addWidget(self.btn_delete_weekly)
-        weekly_btn_row.addWidget(self.btn_project_overview)
-        middle_card.content_layout.addLayout(weekly_btn_row)
+        self.middle_card.content_layout.addLayout(weekly_btn_row)
 
-        right_card = Card("Projekt / Weekly")
-        splitter.addWidget(right_card)
+        self.right_card = Card("Projekt und Weekly")
+        self.main_splitter.addWidget(self.right_card)
 
         project_meta_row = QHBoxLayout()
         project_meta_row.addWidget(QLabel("Projektname"))
@@ -441,26 +452,31 @@ class WeeklyManagerWindow(QMainWindow):
         self.project_end_edit.setCalendarPopup(True)
         self.project_end_edit.setDisplayFormat("dd.MM.yyyy")
         project_meta_row.addWidget(self.project_end_edit)
-        right_card.content_layout.addLayout(project_meta_row)
+        self.right_card.content_layout.addLayout(project_meta_row)
 
         self.project_progress_label = QLabel("Projektfortschritt: -")
         self.project_progress_label.setObjectName("SubtleLabel")
-        right_card.content_layout.addWidget(self.project_progress_label)
+        self.right_card.content_layout.addWidget(self.project_progress_label)
 
         self.project_progress = QProgressBar()
         self.project_progress.setRange(0, 100)
         self.project_progress.setTextVisible(True)
         self.project_progress.setFormat("%p%")
         self.project_progress.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        right_card.content_layout.addWidget(self.project_progress)
+        self.right_card.content_layout.addWidget(self.project_progress)
 
-        self.grp_project_todos = QGroupBox("Projekt TODOs")
+        self.todo_area_container = QWidget()
+        todo_area_layout = QVBoxLayout(self.todo_area_container)
+        todo_area_layout.setContentsMargins(0, 0, 0, 0)
+        todo_area_layout.setSpacing(10)
+
+        self.grp_project_todos = QGroupBox("Projekt-TODOs")
         project_todo_layout = QVBoxLayout(self.grp_project_todos)
         self.project_todos_widget = TaskListWidget("Neue TODO ...")
         project_todo_layout.addWidget(self.project_todos_widget)
-        right_card.content_layout.addWidget(self.grp_project_todos, 1)
+        todo_area_layout.addWidget(self.grp_project_todos, 1)
 
-        self.grp_todo_context = QGroupBox("Offene TODOs (Kontextansicht)")
+        self.grp_todo_context = QGroupBox("Offene TODOs (Kontext)")
         todo_context_layout = QVBoxLayout(self.grp_todo_context)
         self.todo_context_label = QLabel("Kontext: Gesamt")
         self.todo_context_label.setObjectName("SubtleLabel")
@@ -468,39 +484,55 @@ class WeeklyManagerWindow(QMainWindow):
         self.todo_context_list.setSelectionMode(QListWidget.SelectionMode.NoSelection)
         todo_context_layout.addWidget(self.todo_context_label)
         todo_context_layout.addWidget(self.todo_context_list, 1)
-        right_card.content_layout.addWidget(self.grp_todo_context, 1)
+        todo_area_layout.addWidget(self.grp_todo_context, 1)
+        self.right_card.content_layout.addWidget(self.todo_area_container, 1)
+
+        self.weekly_editor_container = QWidget()
+        weekly_editor_layout = QVBoxLayout(self.weekly_editor_container)
+        weekly_editor_layout.setContentsMargins(0, 0, 0, 0)
+        weekly_editor_layout.setSpacing(10)
 
         weekly_meta_row = QHBoxLayout()
-        weekly_meta_row.addWidget(QLabel("Weekly-Titel"))
+        self.lbl_weekly_title = QLabel("Weekly-Titel")
+        weekly_meta_row.addWidget(self.lbl_weekly_title)
         self.weekly_title_edit = QLineEdit()
         self.weekly_title_edit.setPlaceholderText("z. B. Numerik Uebungsblatt 3")
         weekly_meta_row.addWidget(self.weekly_title_edit, 1)
-        weekly_meta_row.addWidget(QLabel("Datum"))
+        self.lbl_weekly_date = QLabel("Datum")
+        weekly_meta_row.addWidget(self.lbl_weekly_date)
         self.weekly_date_edit = QDateEdit()
         self.weekly_date_edit.setCalendarPopup(True)
         self.weekly_date_edit.setDisplayFormat("dd.MM.yyyy")
         weekly_meta_row.addWidget(self.weekly_date_edit)
-        right_card.content_layout.addLayout(weekly_meta_row)
+        weekly_editor_layout.addLayout(weekly_meta_row)
 
         self.grp_planned = QGroupBox("Was war geplant?")
         planned_layout = QVBoxLayout(self.grp_planned)
         self.txt_planned = QTextEdit()
         planned_layout.addWidget(self.txt_planned)
-        right_card.content_layout.addWidget(self.grp_planned, 1)
+        weekly_editor_layout.addWidget(self.grp_planned, 1)
 
         self.grp_done = QGroupBox("Was wurde gemacht?")
         done_layout = QVBoxLayout(self.grp_done)
         self.txt_done = QTextEdit()
         done_layout.addWidget(self.txt_done)
-        right_card.content_layout.addWidget(self.grp_done, 1)
+        weekly_editor_layout.addWidget(self.grp_done, 1)
 
         self.grp_next = QGroupBox("Was ist geplant?")
         next_layout = QVBoxLayout(self.grp_next)
         self.txt_next = QTextEdit()
         next_layout.addWidget(self.txt_next)
-        right_card.content_layout.addWidget(self.grp_next, 1)
+        weekly_editor_layout.addWidget(self.grp_next, 1)
+        self.right_card.content_layout.addWidget(self.weekly_editor_container, 1)
 
-        splitter.setSizes([230, 400, 830])
+        self.right_card_bottom_stretch_index = self.right_card.content_layout.count()
+        self.right_card.content_layout.addStretch(1)
+
+        self.main_splitter.setSizes([230, 400, 830])
+
+        self.middle_card.setVisible(True)
+        self._set_weekly_editor_visible(True)
+        self._set_todo_area_visible(False)
 
         self._set_project_fields_enabled(False)
         self._set_weekly_editor_enabled(False)
@@ -514,6 +546,10 @@ class WeeklyManagerWindow(QMainWindow):
         self.act_remove_project.triggered.connect(self.remove_project)
         self.act_new_weekly.triggered.connect(self.add_weekly)
         self.act_delete_weekly.triggered.connect(self.delete_weekly)
+        self.act_toggle_students_column.toggled.connect(self.left_card.setVisible)
+        self.act_toggle_projects_column.toggled.connect(self.middle_card.setVisible)
+        self.act_toggle_weeklies_column.toggled.connect(self._set_weekly_editor_visible)
+        self.act_toggle_todo_area.toggled.connect(self._set_todo_area_visible)
 
         self.btn_add_student.clicked.connect(self.add_student)
         self.btn_remove_student.clicked.connect(self.remove_student)
@@ -521,7 +557,6 @@ class WeeklyManagerWindow(QMainWindow):
         self.btn_remove_project.clicked.connect(self.remove_project)
         self.btn_new_weekly.clicked.connect(self.add_weekly)
         self.btn_delete_weekly.clicked.connect(self.delete_weekly)
-        self.btn_project_overview.clicked.connect(self._switch_to_project_overview)
 
         self.student_list.currentItemChanged.connect(self.on_student_changed)
         self.project_list.currentItemChanged.connect(self.on_project_changed)
@@ -711,7 +746,7 @@ class WeeklyManagerWindow(QMainWindow):
     def _update_window_title(self):
         filename = os.path.basename(self.current_file) if self.current_file else "Unbenannt"
         dirty = " *" if self._dirty else ""
-        self.setWindowTitle(f"Studierenden-Weeklies Manager - {filename}{dirty}")
+        self.setWindowTitle(f"Studierenden-Weeklies-Manager - {filename}{dirty}")
 
     def _mark_dirty(self):
         if not self._loading_ui:
@@ -730,7 +765,6 @@ class WeeklyManagerWindow(QMainWindow):
         self.project_end_edit.setEnabled(enabled)
         self.project_progress.setEnabled(enabled)
         self.project_todos_widget.setEnabled(enabled)
-        self.btn_project_overview.setEnabled(enabled)
 
     def _set_weekly_editor_enabled(self, enabled: bool):
         self.weekly_title_edit.setEnabled(enabled)
@@ -785,10 +819,43 @@ class WeeklyManagerWindow(QMainWindow):
         self.act_remove_project.setEnabled(has_project)
         self.btn_new_weekly.setEnabled(has_project)
         self.act_new_weekly.setEnabled(has_project)
-        self.btn_project_overview.setEnabled(has_project)
 
         self.btn_delete_weekly.setEnabled(has_weekly)
         self.act_delete_weekly.setEnabled(has_weekly)
+
+    def _set_weekly_editor_visible(self, visible: bool):
+        self.weekly_editor_container.setVisible(visible)
+        self._update_right_area_layout()
+
+    def _set_todo_area_visible(self, visible: bool):
+        self.todo_area_container.setVisible(visible)
+        self._update_right_area_layout()
+
+    def _update_right_area_layout(self):
+        todo_visible = self.todo_area_container.isVisible()
+        weekly_visible = self.weekly_editor_container.isVisible()
+
+        if todo_visible and weekly_visible:
+            self.right_card.content_layout.setStretchFactor(self.todo_area_container, 1)
+            self.right_card.content_layout.setStretchFactor(self.weekly_editor_container, 1)
+            self.right_card.content_layout.setStretch(self.right_card_bottom_stretch_index, 0)
+            return
+
+        if todo_visible:
+            self.right_card.content_layout.setStretchFactor(self.todo_area_container, 1)
+            self.right_card.content_layout.setStretchFactor(self.weekly_editor_container, 0)
+            self.right_card.content_layout.setStretch(self.right_card_bottom_stretch_index, 0)
+            return
+
+        if weekly_visible:
+            self.right_card.content_layout.setStretchFactor(self.todo_area_container, 0)
+            self.right_card.content_layout.setStretchFactor(self.weekly_editor_container, 1)
+            self.right_card.content_layout.setStretch(self.right_card_bottom_stretch_index, 0)
+            return
+
+        self.right_card.content_layout.setStretchFactor(self.todo_area_container, 0)
+        self.right_card.content_layout.setStretchFactor(self.weekly_editor_container, 0)
+        self.right_card.content_layout.setStretch(self.right_card_bottom_stretch_index, 1)
 
     def _weekly_list_text(self, weekly: dict) -> str:
         qd = QDate.fromString(weekly.get("date", ""), Qt.DateFormat.ISODate)
@@ -1124,18 +1191,6 @@ class WeeklyManagerWindow(QMainWindow):
     # ------------------------------------------------------------------
     # Events
     # ------------------------------------------------------------------
-    def _switch_to_project_overview(self):
-        self.weekly_list.blockSignals(True)
-        self.weekly_list.clearSelection()
-        self.weekly_list.blockSignals(False)
-        self.current_weekly_index = None
-        self._set_weekly_editor_enabled(False)
-        self._clear_weekly_ui()
-        self.btn_delete_weekly.setEnabled(False)
-        self.act_delete_weekly.setEnabled(False)
-        self.refresh_todo_context_view()
-        self._sync_action_states()
-
     def on_student_changed(self, current: QListWidgetItem, previous: QListWidgetItem):
         if current is None:
             self.current_student = None
@@ -1242,7 +1297,7 @@ class WeeklyManagerWindow(QMainWindow):
     # CRUD
     # ------------------------------------------------------------------
     def add_student(self):
-        name, ok = QInputDialog.getText(self, "Studierende:n hinzufuegen", "Name:")
+        name, ok = QInputDialog.getText(self, "Studierende hinzufuegen", "Name:")
         if not ok:
             return
 
@@ -1268,7 +1323,7 @@ class WeeklyManagerWindow(QMainWindow):
         name = item.text()
         reply = QMessageBox.question(
             self,
-            "Studierende:n entfernen",
+            "Studierende entfernen",
             f"Soll '{name}' inklusive aller Projekte und Weeklies wirklich entfernt werden?",
             QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
             QMessageBox.StandardButton.No,
@@ -1287,7 +1342,7 @@ class WeeklyManagerWindow(QMainWindow):
 
     def add_project(self):
         if self.current_student is None:
-            QMessageBox.information(self, "Hinweis", "Bitte zuerst eine:n Studierende:n auswaehlen.")
+            QMessageBox.information(self, "Hinweis", "Bitte zuerst eine studierende Person auswaehlen.")
             return
 
         project_name, ok = QInputDialog.getText(self, "Projekt hinzufuegen", "Projektname:")
@@ -1326,8 +1381,8 @@ class WeeklyManagerWindow(QMainWindow):
         project_name = projects[self.current_project_index].get("name", "Projekt")
         reply = QMessageBox.question(
             self,
-            "Projekt loeschen",
-            f"Soll das Projekt '{project_name}' inklusive aller Weeklies wirklich geloescht werden?",
+            "Projekt entfernen",
+            f"Soll das Projekt '{project_name}' inklusive aller Weeklies wirklich entfernt werden?",
             QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
             QMessageBox.StandardButton.No,
         )
@@ -1372,8 +1427,8 @@ class WeeklyManagerWindow(QMainWindow):
         title = self._weekly_list_text(weeklies[self.current_weekly_index])
         reply = QMessageBox.question(
             self,
-            "Weekly loeschen",
-            f"Soll das Weekly '{title}' wirklich geloescht werden?",
+            "Weekly entfernen",
+            f"Soll das Weekly '{title}' wirklich entfernt werden?",
             QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
             QMessageBox.StandardButton.No,
         )
@@ -1448,7 +1503,7 @@ class WeeklyManagerWindow(QMainWindow):
 
 def main():
     app = QApplication(sys.argv)
-    app.setApplicationName("Studierenden-Weeklies Manager")
+    app.setApplicationName("Studierenden-Weeklies-Manager")
     window = WeeklyManagerWindow()
     window.show()
     sys.exit(app.exec())
