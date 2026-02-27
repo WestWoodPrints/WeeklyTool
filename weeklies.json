@@ -170,6 +170,34 @@
     },
     "hdhdjhg": {
       "projects": []
+    },
+    "Philip": {
+      "projects": [
+        {
+          "name": "BA",
+          "start_date": "2026-02-23",
+          "end_date": "2026-04-26",
+          "project_todos": [
+            {
+              "text": "IMPT Logo Schicken",
+              "checked": false
+            },
+            {
+              "text": "Bestellen sd karten modul",
+              "checked": false
+            }
+          ],
+          "weeklies": [
+            {
+              "date": "2026-02-27",
+              "title": "",
+              "planned": "Einarbeitung in Prüfstand",
+              "done": "Einarbeitung in Prüfstand\nMeeting Marco\nEinarbeitung in Hard und Software\nVS Code \nHardeware recherche\nDummmy Codes für Teilmodule \nTMC 2208 Verbaut\nkonstanter Vorschub lösung esp basiert und Stepper treiber basiert \nallgemeine Einarbeitung \nAlle komponenten gecheckt \nVerbesserungspotetial gefunden \nGute Idee für Prüfstand mehrere thermistoren",
+              "next_planned": "Gliederung schreiben \nPID Regelung fertig programieren \nNeuen Schtrittmotor treiber testen \nVerkabeln wenn noch Zeit ist"
+            }
+          ]
+        }
+      ]
     }
   }
 }
