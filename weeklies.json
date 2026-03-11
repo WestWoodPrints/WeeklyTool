@@ -10,11 +10,11 @@
           "project_todos": [
             {
               "text": "IMPT Logo Schicken",
-              "checked": false
+              "checked": true
             },
             {
               "text": "Bestellen sd karten modul",
-              "checked": false
+              "checked": true
             }
           ],
           "weeklies": [
