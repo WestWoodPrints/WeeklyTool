@@ -27,10 +27,17 @@
             },
             {
               "date": "2026-03-06",
-              "title": "",
+              "title": "Struktur Überlegt und geschaffen",
               "planned": "Gliederung schreiben \nPID Regelung fertig programieren \nNeuen Schtrittmotor treiber testen \nVerkabeln wenn noch Zeit ist",
               "done": "Struktur nach V Modell VDI 2206 überlegt, findich gut\nViel struktur geschaffen im Text \nPID regelung läuft\nPID Autotune klappt Marlin als vorbild \nTMC noch nicht gecheckt stuern wahrscheinlich mit vektoral\nWägezelle problematik entdeckt (Rauschen)",
               "next_planned": "Web-UI mit Echtzeitvisualiesierung\nTMC Testen\nMessrauchen untersuchen\nAufbau des gesamt systemstesten mit Breadboard"
+            },
+            {
+              "date": "2026-03-12",
+              "title": "Paper Recherche",
+              "planned": "Web-UI mit Echtzeitvisualiesierung\nTMC Testen\nMessrauchen untersuchen\nAufbau des gesamt systemstesten mit Breadboard",
+              "done": "Stand der Technik weiter reingelesen, 6 gute Paper gefunden\nPaper gehen sehr tief, aber man kann Hardware und aufbau vergleichen\nPaper gefunden das sehr ähnlich ist zu den Fragen der BA \nViel stand der Etchnik recherche und verschriftlich\nEinzelkomponenten wurde getestet \nDateverarbeitung schon rausgesucht",
+              "next_planned": "Implementierung machen\nSystemanforderungen schreiben und System entwurf anlegen"
             }
           ]
         }
