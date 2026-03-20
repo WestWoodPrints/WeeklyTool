@@ -15,6 +15,10 @@
             {
               "text": "Bestellen sd karten modul",
               "checked": true
+            },
+            {
+              "text": "Bestellen kabel kram",
+              "checked": false
             }
           ],
           "weeklies": [
@@ -38,6 +42,13 @@
               "planned": "Web-UI mit Echtzeitvisualiesierung\nTMC Testen\nMessrauchen untersuchen\nAufbau des gesamt systemstesten mit Breadboard",
               "done": "Stand der Technik weiter reingelesen, 6 gute Paper gefunden\nPaper gehen sehr tief, aber man kann Hardware und aufbau vergleichen\nPaper gefunden das sehr ähnlich ist zu den Fragen der BA \nViel stand der Etchnik recherche und verschriftlich\nEinzelkomponenten wurde getestet \nDateverarbeitung schon rausgesucht",
               "next_planned": "Implementierung machen\nSystemanforderungen schreiben und System entwurf anlegen"
+            },
+            {
+              "date": "2026-03-20",
+              "title": "",
+              "planned": "Implementierung machen\nSystemanforderungen schreiben und System entwurf anlegen",
+              "done": "Web UI gebaut (system integration)\nSelbst beschreiben wie strukturiereung sein soll (Spec.md dateien)\nTests programmiern lassen \nprogrammierung mit Claude\nTMC2208 über TMR steuern da der 2226 kaputt gegangen\nfast alles Vibe-Code mit Claude\nvorher aber recherche wie man vorgehen soll (start von 0 wusste nicht was IDE ist)\nSpec driven develoment gewählt\nModule immer einzeln vor Programmiert und auf den aufbauned Spec.md pro modul geschrieben und die dann von Claude zusammen bauen lassen",
+              "next_planned": "Filter paramenter genauer betrachten\nMessreihen aufzeichnung im UI muss noch hintegriert werden\nMessstandfertig haben \nverkabelnung machen"
             }
           ]
         }
