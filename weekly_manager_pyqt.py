@@ -496,7 +496,7 @@ class WeeklyManagerWindow(QMainWindow):
         self.lbl_weekly_title = QLabel("Weekly-Titel")
         weekly_meta_row.addWidget(self.lbl_weekly_title)
         self.weekly_title_edit = QLineEdit()
-        self.weekly_title_edit.setPlaceholderText("z. B. Numerik Uebungsblatt 3")
+        self.weekly_title_edit.setPlaceholderText("Ohne Titel")
         weekly_meta_row.addWidget(self.weekly_title_edit, 1)
         self.lbl_weekly_date = QLabel("Datum")
         weekly_meta_row.addWidget(self.lbl_weekly_date)

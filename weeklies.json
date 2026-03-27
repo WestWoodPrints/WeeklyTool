@@ -45,10 +45,17 @@
             },
             {
               "date": "2026-03-20",
-              "title": "",
+              "title": "Vibe Coding heißt jetzt spec driven development",
               "planned": "Implementierung machen\nSystemanforderungen schreiben und System entwurf anlegen",
               "done": "Web UI gebaut (system integration)\nSelbst beschreiben wie strukturiereung sein soll (Spec.md dateien)\nTests programmiern lassen \nprogrammierung mit Claude\nTMC2208 über TMR steuern da der 2226 kaputt gegangen\nfast alles Vibe-Code mit Claude\nvorher aber recherche wie man vorgehen soll (start von 0 wusste nicht was IDE ist)\nSpec driven develoment gewählt\nModule immer einzeln vor Programmiert und auf den aufbauned Spec.md pro modul geschrieben und die dann von Claude zusammen bauen lassen",
               "next_planned": "Filter paramenter genauer betrachten\nMessreihen aufzeichnung im UI muss noch hintegriert werden\nMessstandfertig haben \nverkabelnung machen"
+            },
+            {
+              "date": "2026-03-27",
+              "title": "Gute Halbzeit wie geplant",
+              "planned": "Filter paramenter genauer betrachten\nMessreihen aufzeichnung im UI muss noch hintegriert werden\nMessstandfertig haben \nverkabelnung machen",
+              "done": "programmierung fertig\nerste Testreihen aufgenommen\nEinleitung, Zielsetzung, Stand der Technik geschrieben",
+              "next_planned": "ein paar kleine Bugs müssen gefixt werden\nMessreihen aufnehmen für verschiedene Kunsstoffe, PLA in verschiedene farbe, versch Feedrate geliche Temp, veschiedene Temp gelicher Forschub"
             }
           ]
         }
