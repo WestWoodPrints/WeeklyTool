@@ -56,6 +56,13 @@
               "planned": "Filter paramenter genauer betrachten\nMessreihen aufzeichnung im UI muss noch hintegriert werden\nMessstandfertig haben \nverkabelnung machen",
               "done": "programmierung fertig\nerste Testreihen aufgenommen\nEinleitung, Zielsetzung, Stand der Technik geschrieben",
               "next_planned": "ein paar kleine Bugs müssen gefixt werden\nMessreihen aufnehmen für verschiedene Kunsstoffe, PLA in verschiedene farbe, versch Feedrate geliche Temp, veschiedene Temp gelicher Forschub"
+            },
+            {
+              "date": "2026-04-02",
+              "title": "",
+              "planned": "ein paar kleine Bugs müssen gefixt werden\nMessreihen aufnehmen für verschiedene Kunsstoffe, PLA in verschiedene farbe, versch Feedrate geliche Temp, veschiedene Temp gelicher Forschub",
+              "done": "Prüfstand fertig gebaut\nStand der technik ist geschrieben \nV-Modell angefangen",
+              "next_planned": "bishcne verkabelung muss gemachtwerden\nFouriertransfomration machen \nVerschirftlichung machen \nmess reihen aufnehmen und verschiriftlichen \nggf. EMF probleme finden und verhindern"
             }
           ]
         }
