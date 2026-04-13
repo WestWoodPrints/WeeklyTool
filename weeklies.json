@@ -67,6 +67,25 @@
           ]
         }
       ]
+    },
+    "Amelie": {
+      "projects": [
+        {
+          "name": "Stufenrolle_TM3",
+          "start_date": "2026-04-13",
+          "end_date": "2026-06-01",
+          "project_todos": [],
+          "weeklies": [
+            {
+              "date": "2026-04-14",
+              "title": "Erstes Meeting nach Vorgesprächen",
+              "planned": "- Allgemeine Gedanken und Ansätze\n- Zeitplan erstellen",
+              "done": "",
+              "next_planned": ""
+            }
+          ]
+        }
+      ]
     }
   }
 }
