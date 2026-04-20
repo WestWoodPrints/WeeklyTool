@@ -73,15 +73,15 @@
         {
           "name": "Stufenrolle_TM3",
           "start_date": "2026-04-13",
-          "end_date": "2026-06-01",
+          "end_date": "2026-08-10",
           "project_todos": [],
           "weeklies": [
             {
               "date": "2026-04-14",
               "title": "Erstes Meeting nach Vorgesprächen",
               "planned": "- Allgemeine Gedanken und Ansätze\n- Zeitplan erstellen",
-              "done": "",
-              "next_planned": ""
+              "done": "Zeitplan mit Meilenstein-Terminvorschlägen: Meilenstein 1: bis zum 10.05 für knozept und theoretisches, \nbis 07.06 - 21. zweiter Meilenstein für aufbau in echt, Abschluss-Präsi: Anfang August\nFestgelegt: Zwei Beschleunigungssensor für jeweilige Masse ausreichend, Drehbeschleunigung errechnet\nGrobe Anforderungen formuliert",
+              "next_planned": "Konzepte für Start/Löse-Mechanismus, Anforderungsliste als \"Listen\"-Form"
             }
           ]
         }
