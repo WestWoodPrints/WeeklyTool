@@ -86,6 +86,25 @@
           ]
         }
       ]
+    },
+    "Tobias Obermann": {
+      "projects": [
+        {
+          "name": "Cocktail - Studienarbeit",
+          "start_date": "2026-04-30",
+          "end_date": "2026-07-22",
+          "project_todos": [],
+          "weeklies": [
+            {
+              "date": "2026-04-23",
+              "title": "Erste Planung",
+              "planned": "nichts",
+              "done": "Überlegung: Gehäuse neu\nPumpensteuerung anpassen (Gleichzeitig laufen) 3 Pumpen vorhanden, Stromversorgung mehr \nPumpfähigkeit kohlensäurehaltiger Getränke\nSoftware; User-experience verbessern\nDokumentation erstellen\n\"Veröffentlichen\"",
+              "next_planned": "- Zeitplan erstellen\n- Anforderungsliste \n- Gespräch Benke  (30.04) oder folgende"
+            }
+          ]
+        }
+      ]
     }
   }
 }
