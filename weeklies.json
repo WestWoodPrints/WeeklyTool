@@ -6,7 +6,7 @@
         {
           "name": "BA",
           "start_date": "2026-02-23",
-          "end_date": "2026-04-26",
+          "end_date": "2026-05-11",
           "project_todos": [
             {
               "text": "IMPT Logo Schicken",
@@ -63,6 +63,13 @@
               "planned": "ein paar kleine Bugs müssen gefixt werden\nMessreihen aufnehmen für verschiedene Kunsstoffe, PLA in verschiedene farbe, versch Feedrate geliche Temp, veschiedene Temp gelicher Forschub",
               "done": "Prüfstand fertig gebaut\nStand der technik ist geschrieben \nV-Modell angefangen",
               "next_planned": "bishcne verkabelung muss gemachtwerden\nFouriertransfomration machen \nVerschirftlichung machen \nmess reihen aufnehmen und verschiriftlichen \nggf. EMF probleme finden und verhindern"
+            },
+            {
+              "date": "2026-04-24",
+              "title": "",
+              "planned": "bishcne verkabelung muss gemachtwerden\nFouriertransfomration machen \nVerschirftlichung machen \nmess reihen aufnehmen und verschiriftlichen \nggf. EMF probleme finden und verhindern",
+              "done": "programmierung ist fertig \nschriftliche Ausarbeitung der Programierung eigendlich auch\nam ende soll ist verglich der Anforderungen\nKostentabelle \nÜberprüfung Prüfstand (3 messung für wiederhohlgenauigkeit)\nGehäuse schick gemacht",
+              "next_planned": "Messgenauigkeit mit Referenzgewicht ermitteln (Messwert drift vorhanden?)\nDatenausmessung muss noch viel geschrieben werden \nFeeder untersuchen \nvergleich beide feeder bei konstanter förderung ob frequenzen auftauchen mit Fourier transformation\nRat gegeben: Lieber schmal und tief untersuchen als breit und Flach"
             }
           ]
         }
