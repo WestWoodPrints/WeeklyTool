@@ -89,6 +89,13 @@
               "planned": "- Allgemeine Gedanken und Ansätze\n- Zeitplan erstellen",
               "done": "Zeitplan mit Meilenstein-Terminvorschlägen: Meilenstein 1: bis zum 10.05 für knozept und theoretisches, \nbis 07.06 - 21. zweiter Meilenstein für aufbau in echt, Abschluss-Präsi: Anfang August\nFestgelegt: Zwei Beschleunigungssensor für jeweilige Masse ausreichend, Drehbeschleunigung errechnet\nGrobe Anforderungen formuliert",
               "next_planned": "Konzepte für Start/Löse-Mechanismus, Anforderungsliste als \"Listen\"-Form"
+            },
+            {
+              "date": "2026-05-06",
+              "title": "Vorgespräch Meilenstein",
+              "planned": "Konzepte für Start/Löse-Mechanismus, Anforderungsliste als \"Listen\"-Form",
+              "done": "Konstruktion CAD, Bauteile etc rausgesucht, Stückliste angefangen\nMeilenstein auf 12.05 10:30 gelegt, theoretisches Konzept",
+              "next_planned": "Meilenstein Vorbereitung, Stückliste fertigstellen, vorhandene Bauteile prüfen"
             }
           ]
         }
