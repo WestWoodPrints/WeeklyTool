@@ -96,6 +96,13 @@
               "planned": "Konzepte für Start/Löse-Mechanismus, Anforderungsliste als \"Listen\"-Form",
               "done": "Konstruktion CAD, Bauteile etc rausgesucht, Stückliste angefangen\nMeilenstein auf 12.05 10:30 gelegt, theoretisches Konzept",
               "next_planned": "Meilenstein Vorbereitung, Stückliste fertigstellen, vorhandene Bauteile prüfen"
+            },
+            {
+              "date": "2026-05-12",
+              "title": "Meilenstein 1",
+              "planned": "Meilenstein Vorbereitung, Stückliste fertigstellen, vorhandene Bauteile prüfen",
+              "done": "Anforderunsliste gemacht \nCAD sehr ausfühlich erstellt\nSrückliste fertig",
+              "next_planned": "Bestellliste fertig machen, Platte rasusuchen, Profile und Verbinder raussuchen\nDetails sind noch zu lösen (befestigen von sachen elektronik verstauen, ...)"
             }
           ]
         }
@@ -115,6 +122,25 @@
               "planned": "nichts",
               "done": "Überlegung: Gehäuse neu\nPumpensteuerung anpassen (Gleichzeitig laufen) 3 Pumpen vorhanden, Stromversorgung mehr \nPumpfähigkeit kohlensäurehaltiger Getränke\nSoftware; User-experience verbessern\nDokumentation erstellen\n\"Veröffentlichen\"",
               "next_planned": "- Zeitplan erstellen\n- Anforderungsliste \n- Gespräch Benke  (30.04) oder folgende"
+            }
+          ]
+        }
+      ]
+    },
+    "Berk": {
+      "projects": [
+        {
+          "name": "Zugpruefmaschine",
+          "start_date": "2026-05-12",
+          "end_date": "2026-08-10",
+          "project_todos": [],
+          "weeklies": [
+            {
+              "date": "2026-05-12",
+              "title": "Startgespraech",
+              "planned": "noch nichts",
+              "done": "noch nichts\nAuf Normen hingewiesen",
+              "next_planned": "Zeitplan, Meeting online in der HIP- Woche, Anforderungsliste vielleicht"
             }
           ]
         }
