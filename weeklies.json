@@ -103,6 +103,13 @@
               "planned": "Meilenstein Vorbereitung, Stückliste fertigstellen, vorhandene Bauteile prüfen",
               "done": "Anforderunsliste gemacht \nCAD sehr ausfühlich erstellt\nSrückliste fertig",
               "next_planned": "Bestellliste fertig machen, Platte rasusuchen, Profile und Verbinder raussuchen\nDetails sind noch zu lösen (befestigen von sachen elektronik verstauen, ...)"
+            },
+            {
+              "date": "2026-07-30",
+              "title": "Quasi Meilenstein \"2,5\"",
+              "planned": "Bestellliste fertig machen, Platte rasusuchen, Profile und Verbinder raussuchen\nDetails sind noch zu lösen (befestigen von sachen elektronik verstauen, ...)",
+              "done": "Bestellt vor Ewigkeiten, Zusammengebaut vor Ewigkeiten, Details gelöst vor Ewigkeiten\n\nViel Programmiert mit Website, esp macht bei strom wifi -> mit pc verbinden und IP adresse . dann benutzbar\n\nProblem: Kabel gelötet -> Aber zu kurz -> bewegt die Masse \nFrage von Amelie: was in Präsi extra? wie feste Bewertung?",
+              "next_planned": "Kabelführen, Elektronik-Anschrauben, Werte Filtern, vllt daten exportieren, Termine für und mit Stefan finden"
             }
           ]
         }
